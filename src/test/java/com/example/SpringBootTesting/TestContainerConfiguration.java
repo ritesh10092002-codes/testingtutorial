@@ -13,10 +13,13 @@ public class TestContainerConfiguration {
     @Bean
     @ServiceConnection
     MySQLContainer<?> mysqlContainer() {
-        return new MySQLContainer<>(DockerImageName.parse("mysql:latest"))
+        return new MySQLContainer<>(DockerImageName.parse("mysql:8.0")) // 8.0 is often more stable than 'latest'
                 .withDatabaseName("testdb")
-                .withUsername("testuser")
-                .withPassword("testpass");
+                .withUsername("test")
+                .withPassword("test")
+                .withEnv("MYSQL_ROOT_PASSWORD", "root")
+                // Add this specific modifier for Mac Silicon support
+                .withCreateContainerCmdModifier(cmd -> cmd.withPlatform("linux/amd64"));
     }
 
 }
