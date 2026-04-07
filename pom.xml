@@ -9,15 +9,15 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.5</version>
+		<version>3.3.2</version>
 		<relativePath/>
 	</parent>
 
-	<groupId>com.example</groupId>
-	<artifactId>SpringBootTesting</artifactId>
+	<groupId>com.codingshuttle</groupId>
+	<artifactId>TestingApp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringBootTesting</name>
-	<description>Spring Boot Testing Project</description>
+	<name>TestingApp</name>
+	<description>Demo project for Spring Boot</description>
 
 	<properties>
 		<java.version>17</java.version>
@@ -25,30 +25,54 @@
 
 	<dependencies>
 
-		<!-- Spring Web -->
+		<!-- Web -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
-		<!-- Spring Data JPA -->
+		<!-- JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 
-		<!-- MySQL Driver -->
+		<!-- PostgreSQL -->
 		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-testcontainers</artifactId>
+			<scope>test</scope>
+		</dependency>
 
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>mysql</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<!-- Lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.32</version>
 			<optional>true</optional>
 		</dependency>
 
@@ -59,25 +83,23 @@
 			<version>3.2.0</version>
 		</dependency>
 
-		<!-- DevTools -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-
-		<!-- Testing -->
+		<!-- Spring Boot Testing (JUnit 5 included) -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
-		<!-- H2 Database for Testing -->
+		<!-- Testcontainers -->
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>postgresql</artifactId>
 			<scope>test</scope>
 		</dependency>
 
@@ -85,10 +107,32 @@
 
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.8.12</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>report</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 
